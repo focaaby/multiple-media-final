@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Final</title>
+	</head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- Firebase -->
+	<script src="https://gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+	<!-- VueFire -->
+	<script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+
+	<style>
+		#my-table {
+		  height: 500px;
+		  overflow: auto;
+		}
+		img {
+			width: 100%;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h2>Camra</h2>
+					<!-- <img class="img-rounded" src="http://fakeimg.pl/350x200/?text=Hello"> -->
+					<img class="img-rounded" src="http://localhost:8080/cam.mjpg">
+				</div>
+  			<div id="app" class="col-md-6">
+					<h1>Table</h1>
+					<div id="my-table">
+						<table id="checked-table" class="table table-striped">
+							<thead>
+							 <tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Time</th>
+							 </tr>
+							</thead>
+							<tbody>
+								<tr v-for="item in items">
+									<td>{{ item.id }}</td>
+									<td>{{ item.name }}</td>
+									<td>{{ item.timestamp }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<script>
+		  // Initialize Firebase
+		  var config = {
+		    apiKey: "AIzaSyAhfanfhmS1_GozxaAJ7SQUtXXm3kTl1So",
+		    authDomain: "test-new-d1982.firebaseapp.com",
+		    databaseURL: "https://test-new-d1982.firebaseio.com",
+		    storageBucket: "test-new-d1982.appspot.com",
+		    messagingSenderId: "190683224980"
+		  };
+		  firebase.initializeApp(config);
+
+			var database = firebase.database();
+			var ref = database.ref('/check/');
+			new Vue({
+        el: '#app',
+        data: {
+          // newTodoText: ''
+        },
+        firebase: {
+          items: ref.limitToLast(10)
+        },
+        methods: {
+        }
+      })
+			// database.ref('/check/').once('value').then(function(snapshot) {
+	  		// var data = snapshot.val();
+				// console.log(data);
+			// });
+
+
+			// jQuery
+			// database.ref('/check/').once('value', function(snapshot) {
+	  	// 	var data = snapshot.val();
+			// 	var mytable = $("#checked-table tbody");
+			// 	console.log(mytable);
+			// 	// console.log(data);
+			// 	var newRowContent = "";
+			// 	var newRowContent = "";
+			//
+			// 	$.each(data, function(index, value) {
+			//
+			// 		mytable.append('<tr><td>' + value.id + '</td><td>' + value.name + '</td><td>' + value.timestamp +'</td></tr>');
+			// 	});
+			// });
+
+
+		</script>
+	</body>
+
+</html>
